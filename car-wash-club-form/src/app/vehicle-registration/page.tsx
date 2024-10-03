@@ -12,11 +12,11 @@ import Grid from "@mui/material/Grid2";
 import { useRouter } from "next/navigation";
 // import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { steps } from "../personal-details/page";
 import axios from "axios";
-import { numberPlateFont } from "../layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
+import { numberPlateFont } from "../theme/font";
+import { steps } from "../component/steps";
 
 export interface FormData {
   licencePlate: string;
@@ -35,34 +35,27 @@ export type Vehicle = {
 export default function VehicleRegistration() {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  // const [storedData, setStoredData] = useState<FormData>({
-  //   licencePlate: "",
-  // });
 
   const formPage = "vehicleRegistration";
-
-  const existingFormData = JSON.parse(sessionStorage.getItem(formPage) || "{}");
-
-  // useEffect(() => {
-  //   const data = JSON.parse(sessionStorage.getItem(formPage) || "{}");
-
-  //   setStoredData({
-  //     licencePlate: String(data.licencePlate).toUpperCase() || "",
-  //   });
-  // }, []);
 
   const {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      licencePlate: existingFormData.licencePlate
-        ? existingFormData.licencePlate
-        : "",
-    },
-  });
+  } = useForm<FormData>();
+
+  useEffect(() => {
+    const existingData: FormData = JSON.parse(
+      sessionStorage.getItem(formPage) || "{}"
+    );
+
+    if (existingData) {
+      setValue("licencePlate", existingData.licencePlate);
+      setValue("vehicle", existingData.vehicle);
+    }
+  }, [setValue]);
 
   const onSubmit = async (data: FormData) => {
     // if (data.dateOfBirth) {

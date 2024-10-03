@@ -10,9 +10,10 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import { steps } from "../personal-details/page";
 import { useForm } from "react-hook-form";
-import { numberPlateFont } from "../layout";
+import { numberPlateFont } from "../theme/font";
+import { steps } from "../component/steps";
+import { useEffect, useState } from "react";
 
 export interface FormData {
   licencePlate: string;
@@ -31,13 +32,26 @@ export type Vehicle = {
 export default function VehicleDetails() {
   const router = useRouter();
   const { handleSubmit } = useForm();
+  const [vehicle, setVehicle] = useState<Vehicle>({
+    registration: "",
+    make: "",
+    model: "",
+    fuelType: "",
+    primaryColour: "",
+    manufactureDate: new Date(),
+  });
 
-  const { vehicle }: { vehicle: Vehicle } = JSON.parse(
-    sessionStorage.getItem("vehicleRegistration") || "{}"
-  );
-  if (!vehicle) {
-    router.push("/vehicle-registration");
-  }
+  useEffect(() => {
+    const { vehicle }: { vehicle: Vehicle } = JSON.parse(
+      sessionStorage.getItem("vehicleRegistration") || "{}"
+    );
+
+    if (!vehicle) {
+      router.push("/vehicle-registration");
+    }
+
+    setVehicle(vehicle);
+  }, [router]);
 
   const onSubmit = () => {
     router.push("/payments");

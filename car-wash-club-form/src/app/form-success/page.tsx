@@ -3,16 +3,15 @@ import {
   Box,
   Button,
   Fade,
-  Link,
   Step,
   StepLabel,
   Stepper,
   Typography,
 } from "@mui/material";
-import { steps } from "../personal-details/page";
 import Grid from "@mui/material/Grid2";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { steps } from "../component/steps";
 
 export default function FormSuccess() {
   const router = useRouter();

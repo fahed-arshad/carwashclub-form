@@ -8,10 +8,10 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import { steps } from "../personal-details/page";
 import Grid from "@mui/material/Grid2";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { steps } from "../component/steps";
 
 export default function Payment() {
   const router = useRouter();

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   // Controller,
   useForm,
@@ -20,8 +20,7 @@ import {
 import { useRouter } from "next/navigation";
 import Grid from "@mui/material/Grid2";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
-
-export const steps = ["My Details", "Vehicle Information", "Payment"];
+import { steps } from "../component/steps";
 
 interface FormData {
   firstName: string;
@@ -33,21 +32,21 @@ interface FormData {
 export default function OnboardingForm() {
   const router = useRouter();
   const formPage = "personalDetails";
-  const existingData: FormData = JSON.parse(
-    sessionStorage.getItem(formPage) || "{}"
-  );
-  // if (existingData.dateOfBirth) {
-  //   existingData.dateOfBirth = parse(existingData.dateOfBirth, "dd/MM/yyyy", new Date());
-  // }
 
-  const { register, handleSubmit } = useForm<FormData>({
-    defaultValues: {
-      firstName: existingData.firstName ? existingData.firstName : "",
-      lastName: existingData.lastName ? existingData.lastName : "",
-      email: existingData.email ? existingData.email : "",
-      phone: existingData.phone ? existingData.phone : "",
-    },
-  });
+  const { register, handleSubmit, setValue } = useForm<FormData>();
+
+  useEffect(() => {
+    const existingData: FormData = JSON.parse(
+      sessionStorage.getItem(formPage) || "{}"
+    );
+
+    if (existingData) {
+      setValue("firstName", existingData.firstName);
+      setValue("lastName", existingData.lastName);
+      setValue("email", existingData.email);
+      setValue("phone", existingData.phone);
+    }
+  }, [setValue]);
 
   const onSubmit = (data: FormData) => {
     // if (data.dateOfBirth) {
