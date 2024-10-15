@@ -14,6 +14,7 @@ export type Membership =
   | "family3Vehicles";
 
 export interface MembershipDetails {
+  id: number;
   title: string;
   description?: string;
   price: string;
@@ -23,38 +24,45 @@ export default function Home() {
   const router = useRouter();
   const memberships: Record<Membership, MembershipDetails> = {
     unlimited: {
+      id: 1,
       title: "Unlimited Gold Wash",
       description: "Unlimited washes with rinse, snow foam, shampoo, and dry.",
       price: "£35",
     },
     unlimitiedAndInterior: {
+      id: 2,
       title: "Unlimited Gold Wash & Interior Clean",
       description: "Unlimited exterior wash plus interior cleaning.",
       price: "£45",
     },
     over60s: {
+      id: 3,
       title: "Over 60s Unlimited Gold Wash",
       description: "Unlimited washes with a discount for over 60s.",
       price: "£30",
     },
     over60sAndInterior: {
+      id: 4,
       title: "Over 60s Unlimited Gold Wash & Interior Clean",
       description: "Unlimited exterior and interior cleaning for over 60s.",
       price: "£45",
     },
     taxiAndUber: {
+      id: 5,
       title: "Taxi & Uber Unlimited Gold Wash",
       description:
         "Unlimited Gold washes and Interior Cleans to keep your vehicle spotless for passengers. Just show us some identification and you'll be on your way!",
       price: "£30",
     },
     family2Vehicles: {
+      id: 6,
       title: "Family Package 1",
       description:
         "Save MORE on our family plan. Unlimited Gold Wash and Interior Clean for 2 vehicles.",
       price: "£80",
     },
     family3Vehicles: {
+      id: 7,
       title: "Family Package 2",
       description:
         "Our biggest SAVER. Get unlimited Gold Washes and Interior Cleans for 3 vehicles.",

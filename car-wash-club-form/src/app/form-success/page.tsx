@@ -16,6 +16,7 @@ import { getSessionStorageItem } from "../helpers/getSessionStorageItem";
 import { PersonalDetailsData } from "../personal-details/page";
 import { VehicleData } from "../vehicle-details/page";
 import axios from "axios";
+import { MembershipDetails } from "../page";
 
 export default function FormSuccess() {
   const router = useRouter();
@@ -29,6 +30,9 @@ export default function FormSuccess() {
       "vehicleRegistration"
     );
 
+    const { id }: MembershipDetails =
+      getSessionStorageItem("selectedMembership");
+
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit-form`, {
         firstName,
@@ -36,6 +40,7 @@ export default function FormSuccess() {
         email,
         phone,
         carWashId: 1,
+        membershipId: id,
         vehicle,
       });
     } catch (error) {
