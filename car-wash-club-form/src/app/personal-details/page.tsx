@@ -22,7 +22,7 @@ import Grid from "@mui/material/Grid2";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { steps } from "../component/steps";
 
-interface FormData {
+export interface PersonalDetailsData {
   firstName: string;
   lastName: string;
   email: string;
@@ -33,10 +33,10 @@ export default function OnboardingForm() {
   const router = useRouter();
   const formPage = "personalDetails";
 
-  const { register, handleSubmit, setValue } = useForm<FormData>();
+  const { register, handleSubmit, setValue } = useForm<PersonalDetailsData>();
 
   useEffect(() => {
-    const existingData: FormData = JSON.parse(
+    const existingData: PersonalDetailsData = JSON.parse(
       sessionStorage.getItem(formPage) || "{}"
     );
 
@@ -48,7 +48,7 @@ export default function OnboardingForm() {
     }
   }, [setValue]);
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: PersonalDetailsData) => {
     // if (data.dateOfBirth) {
     //   data.dateOfBirth = format(new Date(data.dateOfBirth), "dd/MM/yyyy");
     // }

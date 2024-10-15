@@ -15,7 +15,7 @@ import { numberPlateFont } from "../theme/font";
 import { steps } from "../component/steps";
 import { useEffect, useState } from "react";
 
-export interface FormData {
+export interface VehicleData {
   licencePlate: string;
   vehicle?: Vehicle;
 }

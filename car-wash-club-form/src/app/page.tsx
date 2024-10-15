@@ -62,9 +62,9 @@ export default function Home() {
     },
   };
 
-  const handleClick = (membershipTitle: string) => {
+  const handleClick = (membership: MembershipDetails) => {
     console.log("hello");
-    sessionStorage.setItem("selectedMembership", membershipTitle);
+    sessionStorage.setItem("selectedMembership", JSON.stringify(membership));
     router.push("/personal-details");
   };
 
@@ -77,47 +77,43 @@ export default function Home() {
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.unlimited}
-                onClick={() => handleClick(memberships.unlimited.title)}
+                onClick={() => handleClick(memberships.unlimited)}
               />
             </Grid>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.unlimitiedAndInterior}
-                onClick={() =>
-                  handleClick(memberships.unlimitiedAndInterior.title)
-                }
+                onClick={() => handleClick(memberships.unlimitiedAndInterior)}
               />
             </Grid>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.over60s}
-                onClick={() => handleClick(memberships.over60s.title)}
+                onClick={() => handleClick(memberships.over60s)}
               />
             </Grid>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.over60sAndInterior}
-                onClick={() =>
-                  handleClick(memberships.over60sAndInterior.title)
-                }
+                onClick={() => handleClick(memberships.over60sAndInterior)}
               />
             </Grid>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.family2Vehicles}
-                onClick={() => handleClick(memberships.family2Vehicles.title)}
+                onClick={() => handleClick(memberships.family2Vehicles)}
               />
             </Grid>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.family3Vehicles}
-                onClick={() => handleClick(memberships.family3Vehicles.title)}
+                onClick={() => handleClick(memberships.family3Vehicles)}
               />
             </Grid>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
               <MembershipCard
                 content={memberships.taxiAndUber}
-                onClick={() => handleClick(memberships.taxiAndUber.title)}
+                onClick={() => handleClick(memberships.taxiAndUber)}
               />
             </Grid>
           </Grid>

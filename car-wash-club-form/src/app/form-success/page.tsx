@@ -12,20 +12,44 @@ import Grid from "@mui/material/Grid2";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { steps } from "../component/steps";
+import { getSessionStorageItem } from "../helpers/getSessionStorageItem";
+import { PersonalDetailsData } from "../personal-details/page";
+import { VehicleData } from "../vehicle-details/page";
+import axios from "axios";
 
 export default function FormSuccess() {
   const router = useRouter();
   const { handleSubmit } = useForm();
 
-  const onSubmit = () => {
-    sessionStorage.clear();
+  const onSubmit = async () => {
+    const { firstName, lastName, email, phone }: PersonalDetailsData =
+      getSessionStorageItem("personalDetails");
+
+    const { vehicle }: VehicleData = getSessionStorageItem(
+      "vehicleRegistration"
+    );
+
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit-form`, {
+        firstName,
+        lastName,
+        email,
+        phone,
+        carWashId: 1,
+        vehicle,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    // sessionStorage.clear();
     router.push("/");
   };
 
   return (
     <Fade in timeout={300}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid container marginTop={5} spacing={2} marginBottom={5}>
+        <Grid container marginTop={5} spacing={2} marginBottom={5} padding={2}>
           <Grid size={{ xs: 12 }}>
             <Stepper activeStep={3} alternativeLabel>
               {steps.map((label) => (
