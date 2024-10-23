@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid2";
 import { useRouter } from "next/navigation";
 // import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { numberPlateFont } from "../theme/font";
@@ -86,25 +86,43 @@ export default function VehicleRegistration() {
       if (data.licencePlate3) {
         licencePlates.push(data.licencePlate3);
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const carDetails: Vehicle[] = [];
 
-      for (const licencePlate of licencePlates) {
-        const carDetail = await axios.get<Vehicle>(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/car-details`,
-          {
-            params: {
-              licencePlate: licencePlate.toUpperCase(),
-            },
+      const carDetails: Vehicle[] = [];
+      const errors: AxiosError[] = [];
+
+      for (const [index, licencePlate] of licencePlates.entries()) {
+        try {
+          const carDetail = await axios.get<Vehicle>(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/car-details`,
+            {
+              params: {
+                licencePlate: licencePlate.toUpperCase(),
+              },
+            }
+          );
+          console.log(carDetail.data);
+          carDetails.push(carDetail.data);
+        } catch (axiosError) {
+          if (axiosError instanceof AxiosError) {
+            errors.push(axiosError);
+            const errorKey = `licencePlate${index + 1}`;
+            setError(
+              errorKey as "licencePlate" | "licencePlate2" | "licencePlate3",
+              {
+                message: "Invalid registration plate. 😔 Please try again.",
+              }
+            );
           }
-        );
-        console.log(carDetail.data);
-        carDetails.push(carDetail.data);
+        }
       }
 
       console.log(carDetails);
 
       setLoading(false);
+
+      if (errors.length) {
+        return;
+      }
 
       data.vehicles = carDetails;
       data.licencePlate = data.licencePlate.toUpperCase();
@@ -176,7 +194,7 @@ export default function VehicleRegistration() {
               <TextField
                 variant="outlined"
                 fullWidth
-                label="Your vehicle registration"
+                label="Your vehicle registration 2"
                 {...register("licencePlate2", { required: true })}
                 slotProps={{
                   htmlInput: {
@@ -203,9 +221,9 @@ export default function VehicleRegistration() {
                     },
                   },
                 }}
-                error={!!errors.licencePlate}
+                error={!!errors.licencePlate2}
                 helperText={
-                  errors.licencePlate ? errors.licencePlate.message : null
+                  errors.licencePlate2 ? errors.licencePlate2.message : null
                 }
                 required
               />
@@ -216,7 +234,7 @@ export default function VehicleRegistration() {
               <TextField
                 variant="outlined"
                 fullWidth
-                label="Your vehicle registration"
+                label="Your vehicle registration 3"
                 {...register("licencePlate3", { required: true })}
                 slotProps={{
                   htmlInput: {
@@ -243,9 +261,9 @@ export default function VehicleRegistration() {
                     },
                   },
                 }}
-                error={!!errors.licencePlate}
+                error={!!errors.licencePlate3}
                 helperText={
-                  errors.licencePlate ? errors.licencePlate.message : null
+                  errors.licencePlate3 ? errors.licencePlate3.message : null
                 }
                 required
               />
