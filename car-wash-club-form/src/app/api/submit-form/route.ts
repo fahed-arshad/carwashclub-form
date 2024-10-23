@@ -21,9 +21,7 @@ export async function POST(req: NextRequest) {
   try {
     const request = (await req.json()) as RequestDto;
 
-    const vehicles = [request.vehicle];
-    const body = { ...request, vehicles };
-    const response = await revSyncInstance.post("members", body);
+    const response = await revSyncInstance.post("members", request);
     return new NextResponse(JSON.stringify(response.data), {
       status: response.status,
     });

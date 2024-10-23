@@ -26,7 +26,7 @@ export default function FormSuccess() {
     const { firstName, lastName, email, phone }: PersonalDetailsData =
       getSessionStorageItem("personalDetails");
 
-    const { vehicle }: VehicleData = getSessionStorageItem(
+    const { vehicles }: VehicleData = getSessionStorageItem(
       "vehicleRegistration"
     );
 
@@ -41,7 +41,7 @@ export default function FormSuccess() {
         phone,
         carWashId: 1,
         membershipId: id,
-        vehicle,
+        vehicles,
       });
     } catch (error) {
       console.error(error);

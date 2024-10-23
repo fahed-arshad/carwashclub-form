@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 
 export interface VehicleData {
   licencePlate: string;
-  vehicle?: Vehicle;
+  vehicles?: Vehicle[];
 }
 
 export type Vehicle = {
@@ -32,25 +32,27 @@ export type Vehicle = {
 export default function VehicleDetails() {
   const router = useRouter();
   const { handleSubmit } = useForm();
-  const [vehicle, setVehicle] = useState<Vehicle>({
-    registration: "",
-    make: "",
-    model: "",
-    fuelType: "",
-    primaryColour: "",
-    manufactureDate: new Date(),
-  });
+  const [vehicles, setVehicles] = useState<Vehicle[]>([
+    {
+      registration: "",
+      make: "",
+      model: "",
+      fuelType: "",
+      primaryColour: "",
+      manufactureDate: new Date(),
+    },
+  ]);
 
   useEffect(() => {
-    const { vehicle }: { vehicle: Vehicle } = JSON.parse(
+    const { vehicles }: { vehicles: Vehicle[] } = JSON.parse(
       sessionStorage.getItem("vehicleRegistration") || "{}"
     );
 
-    if (!vehicle) {
+    if (!vehicles) {
       router.push("/vehicle-registration");
     }
 
-    setVehicle(vehicle);
+    setVehicles(vehicles);
   }, [router]);
 
   const onSubmit = () => {
@@ -78,48 +80,61 @@ export default function VehicleDetails() {
             </Stepper>
           </Grid>
           <Grid size={{ xs: 12 }}>
-            <Typography textAlign="center" variant="h2">
-              Is this your car?
+            <Typography textAlign="center" variant="h3">
+              {vehicles.length > 1
+                ? "Are these your vehicles?"
+                : "Is this your vehicle?"}
             </Typography>
           </Grid>
           <Grid
-            size={{ xs: 12 }}
-            display="flex"
-            justifyContent="center"
-            textAlign="center"
-          >
-            <Typography
-              maxWidth={200}
-              paddingLeft={1}
-              paddingRight={1}
-              fontFamily={numberPlateFont.style.fontFamily}
-              fontSize={24}
-              sx={{ backgroundColor: "#fed500", borderRadius: "5px" }}
-            >
-              {vehicle.registration}
-            </Typography>
-          </Grid>
-          <Grid
-            size={{ xs: 12 }}
-            gap={2}
-            display="flex"
+            container
             justifyContent="center"
             alignItems="center"
+            spacing={10}
           >
-            <Box
-              component="img"
-              src={`https://cdn.brandfetch.io/${vehicle.make}.com/logo/theme/dark/`}
-              width={100}
-            />
-            <Box>
-              <Typography>
-                {vehicle.make} {vehicle.model}
-              </Typography>
-              <Typography>
-                {new Date(vehicle.manufactureDate).getFullYear()} •{" "}
-                {vehicle.fuelType} • {vehicle.primaryColour}
-              </Typography>
-            </Box>
+            {vehicles.map((vehicle, key) => (
+              <Grid container key={key} spacing={2} justifyContent="center">
+                <Grid
+                  size={{ md: 4, sm: 6, xs: 12 }}
+                  display="flex"
+                  justifyContent="center"
+                  textAlign="center"
+                >
+                  <Typography
+                    maxWidth={200}
+                    paddingLeft={1}
+                    paddingRight={1}
+                    fontFamily={numberPlateFont.style.fontFamily}
+                    fontSize={24}
+                    sx={{ backgroundColor: "#fed500", borderRadius: "5px" }}
+                  >
+                    {vehicle.registration}
+                  </Typography>
+                </Grid>
+                <Grid
+                  size={{ xs: 12 }}
+                  gap={2}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Box
+                    component="img"
+                    src={`https://cdn.brandfetch.io/${vehicle.make}.com/logo/theme/dark/`}
+                    width={100}
+                  />
+                  <Box>
+                    <Typography>
+                      {vehicle.make} {vehicle.model}
+                    </Typography>
+                    <Typography>
+                      {new Date(vehicle.manufactureDate).getFullYear()} •{" "}
+                      {vehicle.fuelType} • {vehicle.primaryColour}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            ))}
           </Grid>
           <Grid
             container

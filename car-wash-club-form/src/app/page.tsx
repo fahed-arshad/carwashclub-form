@@ -72,6 +72,7 @@ export default function Home() {
 
   const handleClick = (membership: MembershipDetails) => {
     console.log("hello");
+    sessionStorage.removeItem("vehicleRegistration");
     sessionStorage.setItem("selectedMembership", JSON.stringify(membership));
     router.push("/personal-details");
   };

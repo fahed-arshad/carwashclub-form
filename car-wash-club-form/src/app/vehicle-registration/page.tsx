@@ -17,10 +17,13 @@ import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { numberPlateFont } from "../theme/font";
 import { steps } from "../component/steps";
+import { MembershipDetails } from "../page";
 
 export interface FormData {
   licencePlate: string;
-  vehicle?: Vehicle;
+  licencePlate2?: string;
+  licencePlate3?: string;
+  vehicles?: Vehicle[];
 }
 
 export type Vehicle = {
@@ -35,6 +38,8 @@ export type Vehicle = {
 export default function VehicleRegistration() {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [selectedMembership, setSelectedMembership] =
+    useState<MembershipDetails>();
 
   const formPage = "vehicleRegistration";
 
@@ -51,9 +56,19 @@ export default function VehicleRegistration() {
       sessionStorage.getItem(formPage) || "{}"
     );
 
+    const membershipLevel: MembershipDetails = JSON.parse(
+      sessionStorage.getItem("selectedMembership") || "{}"
+    );
+
     if (existingData) {
       setValue("licencePlate", existingData.licencePlate);
-      setValue("vehicle", existingData.vehicle);
+      setValue("licencePlate2", existingData.licencePlate2);
+      setValue("licencePlate3", existingData.licencePlate3);
+      setValue("vehicles", existingData.vehicles);
+    }
+
+    if (membershipLevel) {
+      setSelectedMembership(membershipLevel);
     }
   }, [setValue]);
 
@@ -61,19 +76,37 @@ export default function VehicleRegistration() {
     // if (data.dateOfBirth) {
     //   data.dateOfBirth = format(new Date(data.dateOfBirth), "dd/MM/yyyy");
     // }
+    sessionStorage.removeItem("vehicleRegistration");
     try {
       setLoading(true);
-      const carDetails = await axios.get<Vehicle>(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/car-details`,
-        {
-          params: {
-            licencePlate: data.licencePlate.toUpperCase(),
-          },
-        }
-      );
+      const licencePlates = [data.licencePlate];
+      if (data.licencePlate2) {
+        licencePlates.push(data.licencePlate2);
+      }
+      if (data.licencePlate3) {
+        licencePlates.push(data.licencePlate3);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const carDetails: Vehicle[] = [];
+
+      for (const licencePlate of licencePlates) {
+        const carDetail = await axios.get<Vehicle>(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/car-details`,
+          {
+            params: {
+              licencePlate: licencePlate.toUpperCase(),
+            },
+          }
+        );
+        console.log(carDetail.data);
+        carDetails.push(carDetail.data);
+      }
+
+      console.log(carDetails);
+
       setLoading(false);
 
-      data.vehicle = carDetails.data;
+      data.vehicles = carDetails;
       data.licencePlate = data.licencePlate.toUpperCase();
       sessionStorage.setItem(formPage, JSON.stringify(data));
       router.push("/vehicle-details");
@@ -137,6 +170,87 @@ export default function VehicleRegistration() {
               required
             />
           </Grid>
+          {(selectedMembership?.title === "Family Package 1" ||
+            selectedMembership?.title === "Family Package 2") && (
+            <Grid size={{ xs: 12 }} textAlign="center">
+              <TextField
+                variant="outlined"
+                fullWidth
+                label="Your vehicle registration"
+                {...register("licencePlate2", { required: true })}
+                slotProps={{
+                  htmlInput: {
+                    style: {
+                      textTransform: "uppercase",
+                      fontFamily: numberPlateFont.style.fontFamily,
+                    },
+                  },
+                  inputLabel: {
+                    style: {
+                      fontFamily: numberPlateFont.style.fontFamily,
+                      fontSize: "24px",
+                    },
+                  },
+                  input: {
+                    style: {
+                      backgroundColor: "#fed500",
+                      fontSize: "24px",
+                    },
+                  },
+                  formHelperText: {
+                    style: {
+                      fontSize: "24px",
+                    },
+                  },
+                }}
+                error={!!errors.licencePlate}
+                helperText={
+                  errors.licencePlate ? errors.licencePlate.message : null
+                }
+                required
+              />
+            </Grid>
+          )}
+          {selectedMembership?.title === "Family Package 2" && (
+            <Grid size={{ xs: 12 }} textAlign="center">
+              <TextField
+                variant="outlined"
+                fullWidth
+                label="Your vehicle registration"
+                {...register("licencePlate3", { required: true })}
+                slotProps={{
+                  htmlInput: {
+                    style: {
+                      textTransform: "uppercase",
+                      fontFamily: numberPlateFont.style.fontFamily,
+                    },
+                  },
+                  inputLabel: {
+                    style: {
+                      fontFamily: numberPlateFont.style.fontFamily,
+                      fontSize: "24px",
+                    },
+                  },
+                  input: {
+                    style: {
+                      backgroundColor: "#fed500",
+                      fontSize: "24px",
+                    },
+                  },
+                  formHelperText: {
+                    style: {
+                      fontSize: "24px",
+                    },
+                  },
+                }}
+                error={!!errors.licencePlate}
+                helperText={
+                  errors.licencePlate ? errors.licencePlate.message : null
+                }
+                required
+              />
+            </Grid>
+          )}
           <Grid size={{ md: 6, xs: 12 }}></Grid>
           <Grid
             container
