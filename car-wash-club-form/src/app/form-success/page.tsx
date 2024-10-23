@@ -47,7 +47,7 @@ export default function FormSuccess() {
       console.error(error);
     }
 
-    // sessionStorage.clear();
+    sessionStorage.clear();
     router.push("/");
   };
 
