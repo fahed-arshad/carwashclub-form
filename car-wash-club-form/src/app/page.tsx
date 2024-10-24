@@ -1,5 +1,5 @@
 "use client";
-import { Fade, Stack, Typography } from "@mui/material";
+import { Fade, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import MembershipCard from "./component/card";
 import { useRouter } from "next/navigation";
