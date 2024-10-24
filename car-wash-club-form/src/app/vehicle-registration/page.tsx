@@ -105,7 +105,9 @@ export default function VehicleRegistration() {
         } catch (axiosError) {
           if (axiosError instanceof AxiosError) {
             errors.push(axiosError);
-            const errorKey = `licencePlate${index + 1}`;
+            const errorKey =
+              index === 0 ? `licencePlate` : `licencePlate${index + 1}`;
+            console.log({ errorKey: errorKey });
             setError(
               errorKey as "licencePlate" | "licencePlate2" | "licencePlate3",
               {

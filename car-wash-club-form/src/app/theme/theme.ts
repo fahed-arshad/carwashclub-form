@@ -114,7 +114,7 @@ export const theme = createTheme({
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          color: "#FFFFFF!important",
+          color: "#FFFFFF",
         },
       },
     },
