@@ -9,6 +9,7 @@ import {
   StepLabel,
   Stepper,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { numberPlateFont } from "../theme/font";
@@ -31,6 +32,7 @@ export type Vehicle = {
 
 export default function VehicleDetails() {
   const router = useRouter();
+  const theme = useTheme();
   const { handleSubmit } = useForm();
   const [vehicles, setVehicles] = useState<Vehicle[]>([
     {
@@ -120,14 +122,14 @@ export default function VehicleDetails() {
                 >
                   <Box
                     component="img"
-                    src={`https://cdn.brandfetch.io/${vehicle.make}.com/logo/theme/dark/`}
+                    src={`https://cdn.brandfetch.io/${vehicle.make}.com/logo/theme/light/`}
                     width={100}
                   />
                   <Box>
-                    <Typography>
+                    <Typography sx={{ color: theme.palette.text.primary }}>
                       {vehicle.make} {vehicle.model}
                     </Typography>
-                    <Typography>
+                    <Typography sx={{ color: theme.palette.text.primary }}>
                       {new Date(vehicle.manufactureDate).getFullYear()} •{" "}
                       {vehicle.fuelType} • {vehicle.primaryColour}
                     </Typography>

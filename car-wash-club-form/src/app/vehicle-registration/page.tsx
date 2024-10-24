@@ -161,6 +161,7 @@ export default function VehicleRegistration() {
                   style: {
                     textTransform: "uppercase",
                     fontFamily: numberPlateFont.style.fontFamily,
+                    color: "black",
                   },
                 },
                 inputLabel: {
@@ -201,6 +202,7 @@ export default function VehicleRegistration() {
                     style: {
                       textTransform: "uppercase",
                       fontFamily: numberPlateFont.style.fontFamily,
+                      color: "black",
                     },
                   },
                   inputLabel: {
@@ -241,6 +243,7 @@ export default function VehicleRegistration() {
                     style: {
                       textTransform: "uppercase",
                       fontFamily: numberPlateFont.style.fontFamily,
+                      color: "black",
                     },
                   },
                   inputLabel: {

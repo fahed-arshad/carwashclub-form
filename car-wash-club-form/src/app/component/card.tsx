@@ -17,10 +17,14 @@ export default function MembershipCard({
 }) {
   return (
     <CardActionArea
-      sx={{ height: "100%", minHeight: "100%", maxHeight: "300px" }}
+      sx={{
+        height: "100%",
+        minHeight: "100%",
+        maxHeight: "300px",
+      }}
       onClick={onClick}
     >
-      <Card variant="outlined" sx={{ height: "100%" }}>
+      <Card variant="outlined" sx={{ height: "100%", borderRadius: "0px" }}>
         <CardContent sx={{ height: "100%" }}>
           <Box
             display="grid"
@@ -32,7 +36,7 @@ export default function MembershipCard({
               <Typography variant="h5">{content.title}</Typography>
               <Typography>{content.description}</Typography>
             </Box>
-            <Typography variant="h6">{content.price}</Typography>
+            <Typography variant="h6">{content.price} / PER MONTH</Typography>
           </Box>
         </CardContent>
       </Card>

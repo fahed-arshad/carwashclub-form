@@ -2,7 +2,7 @@
 import "./globals.css";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme/theme";
-import { nunito } from "./theme/font";
+import { syne } from "./theme/font";
 
 export default function RootLayout({
   children,
@@ -11,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={nunito.className}>
+      <body className={syne.className}>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </body>
     </html>

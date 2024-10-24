@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 import type {} from "@mui/lab/themeAugmentation";
-import { nunito } from "./font";
+import { saira, syne } from "./font";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -19,30 +19,59 @@ export const theme = createTheme({
       main: "#FFFFFF",
     },
     primary: {
-      main: "#05173d",
+      main: "#212121",
     },
     secondary: {
-      main: "#00a2af",
+      main: "#D1CDCD",
     },
     text: {
-      primary: "#303133",
+      primary: "#FFFFFF",
+    },
+    background: {
+      paper: "#212121",
     },
   },
   typography: {
-    fontFamily: nunito.style.fontFamily,
+    fontFamily: saira.style.fontFamily,
+    h5: {
+      fontFamily: syne.style.fontFamily,
+      textTransform: "uppercase",
+      fontWeight: "bold",
+      color: "#FFFFFF",
+    },
+    h3: {
+      fontFamily: syne.style.fontFamily,
+      textTransform: "uppercase",
+      fontWeight: "bold",
+      color: "#FFFFFF",
+    },
+    h2: {
+      fontFamily: syne.style.fontFamily,
+      textTransform: "uppercase",
+      fontWeight: "bold",
+      color: "#FFFFFF",
+    },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
+          fontFamily: syne.style.fontFamily,
+          fontWeight: "bold",
+          textTransform: "uppercase",
+          borderRadius: "100px",
+          backgroundColor: "#14F7F0",
+          color: "#1A1A1A",
         },
       },
     },
-    MuiTextField: {
+    MuiLoadingButton: {
       styleOverrides: {
         root: {
-          backgroundColor: "white",
+          backgroundColor: "#14F7F0!important",
+        },
+        loading: {
+          backgroundColor: "#14F7F0!important",
         },
       },
     },
@@ -53,6 +82,82 @@ export const theme = createTheme({
         },
         listbox: {
           alignItems: "flex-start",
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#212121",
+        },
+        focused: {
+          borderColor: "#FFFFFF!important",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#FFFFFF", // Border color when focused
+          },
+        },
+        notchedOutline: {
+          borderColor: "#D1CDCD", // Default border color
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: "#FFFFFF!important",
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderColor: "#14F7F0",
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "#FFFFFF!important",
+        },
+      },
+    },
+    MuiStepLabel: {
+      styleOverrides: {
+        label: {
+          color: "#FFFFFF",
+          "&.Mui-active": {
+            color: "#FFFFFF",
+          },
+        },
+      },
+    },
+    MuiStepIcon: {
+      styleOverrides: {
+        root: {
+          fill: "#D1CDCD",
+          "&.Mui-completed": {
+            color: "#14F7F0!important",
+            fill: "#14F7F0",
+          },
+          "&.Mui-active": {
+            color: "#14F7F0",
+            fill: "#14F7F0",
+          },
+          "&.Mui-active .MuiStepIcon-text": {
+            fill: "#212121", // Active step icon text color
+            fontWeight: "bold", // Make it bold when active
+          },
+        },
+        text: {
+          color: "#212121",
+          fill: "#212121",
         },
       },
     },
