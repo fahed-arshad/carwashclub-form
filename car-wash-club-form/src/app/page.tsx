@@ -80,7 +80,6 @@ export default function Home() {
   return (
     <Fade in timeout={300}>
       <Stack alignItems="center">
-        <Typography>Which membership would you like to choose?</Typography>
         <form>
           <Grid container spacing={2} justifyContent="center" padding={2}>
             <Grid size={{ md: 4, sm: 6, xs: 12 }}>
