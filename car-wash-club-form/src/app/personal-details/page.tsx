@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import Grid from "@mui/material/Grid2";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { steps } from "../component/steps";
-import { polyfill } from "seamless-scroll-polyfill";
+import { scrollIntoView } from "seamless-scroll-polyfill";
 
 export interface PersonalDetailsData {
   firstName: string;
@@ -39,10 +39,9 @@ export default function OnboardingForm() {
 
   useEffect(() => {
     // Scroll to the form element when the page loads
-    polyfill();
 
     if (formRef.current) {
-      formRef.current.scrollIntoView({
+      scrollIntoView(formRef.current, {
         behavior: "smooth",
         block: "center",
         inline: "center",
