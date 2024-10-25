@@ -73,7 +73,7 @@ export default function OnboardingForm() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Fade in timeout={300}>
-        <form id="persona-details-form" onSubmit={handleSubmit(onSubmit)}>
+        <form id="personal-details-form" onSubmit={handleSubmit(onSubmit)}>
           <Grid
             container
             marginTop={5}
