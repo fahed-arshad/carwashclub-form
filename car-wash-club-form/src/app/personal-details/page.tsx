@@ -39,14 +39,26 @@ export default function OnboardingForm() {
 
   useEffect(() => {
     // Scroll to the form element when the page loads
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
     polyfill();
 
     if (formRef.current) {
-      formRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
+      if (isSafari) {
+        console.log(isSafari);
+        const offsetTop =
+          formRef.current.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: "smooth",
+        });
+      } else {
+        formRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+      }
     }
   }, []);
 
