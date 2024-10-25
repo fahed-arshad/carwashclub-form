@@ -90,8 +90,8 @@ export const theme = createTheme({
         root: {
           backgroundColor: "#212121",
           "&:-webkit-autofill": {
-            WebkitBoxShadow: "0 0 0px 1000px #212121 inset", // Override autofill background color
-            WebkitTextFillColor: "#FFFFFF", // Change text color to match your theme
+            WebkitBoxShadow: "0 0 0px 1000px #212121 inset !important", // Override autofill background color
+            WebkitTextFillColor: "#FFFFFF!important", // Change text color to match your theme
           },
         },
         focused: {
