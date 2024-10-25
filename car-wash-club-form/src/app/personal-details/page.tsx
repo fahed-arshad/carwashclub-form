@@ -37,10 +37,14 @@ export default function OnboardingForm() {
   const { register, handleSubmit, setValue } = useForm<PersonalDetailsData>();
 
   useEffect(() => {
-    // Scroll to the form element when the page loads
-    if (formRef.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    // Delay to ensure layout is stable
+    setTimeout(() => {
+      if (formRef.current) {
+        const formPosition =
+          formRef.current.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: formPosition, behavior: "smooth" });
+      }
+    }, 100); // Delay to allow layout adjustments to complete
   }, []);
 
   useEffect(() => {
