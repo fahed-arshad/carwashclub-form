@@ -100,14 +100,12 @@ export default function VehicleRegistration() {
               },
             }
           );
-          console.log(carDetail.data);
           carDetails.push(carDetail.data);
         } catch (axiosError) {
           if (axiosError instanceof AxiosError) {
             errors.push(axiosError);
             const errorKey =
               index === 0 ? `licencePlate` : `licencePlate${index + 1}`;
-            console.log({ errorKey: errorKey });
             setError(
               errorKey as "licencePlate" | "licencePlate2" | "licencePlate3",
               {
@@ -117,8 +115,6 @@ export default function VehicleRegistration() {
           }
         }
       }
-
-      console.log(carDetails);
 
       setLoading(false);
 
