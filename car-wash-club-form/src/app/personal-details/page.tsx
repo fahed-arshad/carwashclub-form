@@ -32,16 +32,14 @@ export interface PersonalDetailsData {
 
 export default function OnboardingForm() {
   const router = useRouter();
-  const formRef = useRef<HTMLFormElement | null>(null);
   const formPage = "personalDetails";
 
   const { register, handleSubmit, setValue } = useForm<PersonalDetailsData>();
 
   useEffect(() => {
-    // Scroll to the form element when the page loads
-
-    if (formRef.current) {
-      scrollIntoView(formRef.current, {
+    const element = document.querySelector("#personal-details-form");
+    if (element !== null) {
+      scrollIntoView(element, {
         behavior: "smooth",
         block: "center",
         inline: "center",
@@ -75,7 +73,7 @@ export default function OnboardingForm() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Fade in timeout={300}>
-        <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+        <form id="persona-details-form" onSubmit={handleSubmit(onSubmit)}>
           <Grid
             container
             marginTop={5}
