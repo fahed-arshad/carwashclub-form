@@ -23,8 +23,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { steps } from "../component/steps";
 import { elementScrollIntoViewPolyfill } from "seamless-scroll-polyfill";
 
-elementScrollIntoViewPolyfill();
-
 export interface PersonalDetailsData {
   firstName: string;
   lastName: string;
@@ -41,6 +39,8 @@ export default function OnboardingForm() {
 
   useEffect(() => {
     // Scroll to the form element when the page loads
+    elementScrollIntoViewPolyfill();
+
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
