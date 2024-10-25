@@ -21,7 +21,9 @@ import { useRouter } from "next/navigation";
 import Grid from "@mui/material/Grid2";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { steps } from "../component/steps";
-import "seamless-scroll-polyfill";
+import { elementScrollIntoViewPolyfill } from "seamless-scroll-polyfill";
+
+elementScrollIntoViewPolyfill();
 
 export interface PersonalDetailsData {
   firstName: string;
