@@ -95,6 +95,24 @@ export const theme = createTheme({
             backgroundColor: "#212121!important",
             backgroundClip: "#212121!important",
           },
+          "&:hover:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0px 1000px #1A1A1A inset !important", // Hover background color
+            WebkitTextFillColor: "#FFFFFF!important", // Hover text color
+            backgroundColor: "#212121!important",
+            backgroundClip: "#212121!important",
+          },
+          "&:focus:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0px 1000px #333333 inset !important", // Focused background color
+            WebkitTextFillColor: "#FFFFFF!important",
+            backgroundColor: "#212121!important",
+            backgroundClip: "#212121!important",
+          },
+          "&:active:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0px 1000px #444444 inset !important", // Active background color
+            WebkitTextFillColor: "#FFFFFF!important",
+            backgroundColor: "#212121!important",
+            backgroundClip: "#212121!important",
+          },
         },
         focused: {
           borderColor: "#FFFFFF!important",
