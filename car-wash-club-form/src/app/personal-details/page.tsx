@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   // Controller,
   useForm,
@@ -31,9 +31,17 @@ export interface PersonalDetailsData {
 
 export default function OnboardingForm() {
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement | null>(null);
   const formPage = "personalDetails";
 
   const { register, handleSubmit, setValue } = useForm<PersonalDetailsData>();
+
+  useEffect(() => {
+    // Scroll to the form element when the page loads
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   useEffect(() => {
     const existingData: PersonalDetailsData = JSON.parse(
@@ -61,7 +69,7 @@ export default function OnboardingForm() {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Fade in timeout={300}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
           <Grid
             container
             marginTop={5}
