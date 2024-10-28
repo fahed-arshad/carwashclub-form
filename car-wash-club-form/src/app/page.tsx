@@ -1,5 +1,3 @@
-// src/app/page.tsx
-
 import axios from "axios";
 import Home from "./form";
 
@@ -11,13 +9,8 @@ export interface Membership {
 }
 
 export default async function HomeSSR() {
-  try {
-    const { data } = await axios.get<Membership[]>(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/membership-levels`
-    );
-    return <Home memberships={data} />;
-  } catch (error) {
-    console.error("Error fetching memberships:", error);
-    return <Home memberships={[]} />; // Provide fallback if API request fails
-  }
+  const { data } = await axios.get<Membership[]>(
+    `${process.env.NEXT_PUBLIC_BACKEND_API}/memberships`
+  );
+  return <Home memberships={data} />;
 }
