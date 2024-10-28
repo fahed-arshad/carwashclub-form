@@ -16,7 +16,7 @@ import { getSessionStorageItem } from "../helpers/getSessionStorageItem";
 import { PersonalDetailsData } from "../personal-details/page";
 import { VehicleData } from "../vehicle-details/page";
 import axios from "axios";
-import { MembershipDetails } from "../page";
+import { Membership } from "../page";
 
 export default function FormSuccess() {
   const router = useRouter();
@@ -30,8 +30,7 @@ export default function FormSuccess() {
       "vehicleRegistration"
     );
 
-    const { id }: MembershipDetails =
-      getSessionStorageItem("selectedMembership");
+    const { id }: Membership = getSessionStorageItem("selectedMembership");
 
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/submit-form`, {

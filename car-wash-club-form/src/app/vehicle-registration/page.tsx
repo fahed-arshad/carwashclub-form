@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { numberPlateFont } from "../theme/font";
 import { steps } from "../component/steps";
-import { MembershipDetails } from "../page";
+import { Membership } from "../page";
 
 export interface FormData {
   licencePlate: string;
@@ -38,8 +38,7 @@ export type Vehicle = {
 export default function VehicleRegistration() {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedMembership, setSelectedMembership] =
-    useState<MembershipDetails>();
+  const [selectedMembership, setSelectedMembership] = useState<Membership>();
 
   const formPage = "vehicleRegistration";
 
@@ -56,7 +55,7 @@ export default function VehicleRegistration() {
       sessionStorage.getItem(formPage) || "{}"
     );
 
-    const membershipLevel: MembershipDetails = JSON.parse(
+    const membershipLevel: Membership = JSON.parse(
       sessionStorage.getItem("selectedMembership") || "{}"
     );
 
@@ -187,8 +186,8 @@ export default function VehicleRegistration() {
               required
             />
           </Grid>
-          {(selectedMembership?.title === "Family Package 1" ||
-            selectedMembership?.title === "Family Package 2") && (
+          {(selectedMembership?.name === "Family Package 1" ||
+            selectedMembership?.name === "Family Package 2") && (
             <Grid size={{ xs: 12 }} textAlign="center">
               <TextField
                 variant="outlined"
@@ -229,7 +228,7 @@ export default function VehicleRegistration() {
               />
             </Grid>
           )}
-          {selectedMembership?.title === "Family Package 2" && (
+          {selectedMembership?.name === "Family Package 2" && (
             <Grid size={{ xs: 12 }} textAlign="center">
               <TextField
                 variant="outlined"

@@ -6,13 +6,13 @@ import {
   Card,
   Box,
 } from "@mui/material";
-import { MembershipDetails } from "../page";
+import { Membership } from "../page";
 
 export default function MembershipCard({
   content,
   onClick,
 }: {
-  content: MembershipDetails;
+  content: Membership;
   onClick?: () => void;
 }) {
   return (
@@ -33,7 +33,7 @@ export default function MembershipCard({
             height="100%"
           >
             <Box>
-              <Typography variant="h5">{content.title}</Typography>
+              <Typography variant="h5">{content.name}</Typography>
               <Typography>{content.description}</Typography>
             </Box>
             <Typography variant="h6">{content.price} / PER MONTH</Typography>
