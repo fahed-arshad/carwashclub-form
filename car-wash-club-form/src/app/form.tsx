@@ -19,12 +19,12 @@ export default function Home({ memberships }: { memberships: Membership[] }) {
       <Stack alignItems="center">
         <form>
           <Grid container spacing={2} justifyContent="center" padding={2}>
-            {memberships.map((membership, key) => (
-              <Grid size={{ md: 4, sm: 6, xs: 12 }} key={key}>
+            {memberships.map((membership) => (
+              <Grid size={{ md: 4, sm: 6, xs: 12 }} key={membership.id}>
                 <MembershipCard
                   content={membership}
                   onClick={() => handleClick(membership)}
-                  key={key}
+                  key={membership.id}
                 />
               </Grid>
             ))}
